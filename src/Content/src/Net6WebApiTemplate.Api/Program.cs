@@ -1,6 +1,33 @@
 using Net6WebApiTemplate.Application;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// loading appsettings.json based on environment
+builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
+{
+    var env = hostingContext.HostingEnvironment;
+
+    config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        .AddJsonFile($"appsettings.Local.json", optional: true, reloadOnChange: true)
+                        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+    if (env.EnvironmentName == "Local")
+    {
+        var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
+        if (appAssembly != null)
+        {
+            config.AddUserSecrets(appAssembly, optional: true);
+        }
+    }
+
+    config.AddEnvironmentVariables();
+
+    if (args != null)
+    {
+        config.AddCommandLine(args);
+    }
+});
 
 // Add services to the container.
 builder.Services.AddApplication();
