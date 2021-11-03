@@ -1,7 +1,17 @@
 using Net6WebApiTemplate.Application;
+using NLog.Web;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure NLog
+var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+builder.Host.ConfigureLogging(logging => 
+{
+    logging.ClearProviders();
+    logging.SetMinimumLevel(LogLevel.Trace);
+})
+.UseNLog();  // NLog: Setup NLog for Dependency injection
 
 // loading appsettings.json based on environment
 builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
@@ -37,6 +47,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
