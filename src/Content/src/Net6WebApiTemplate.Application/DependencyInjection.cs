@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace Net6WebApiTemplate.Application
 {
-    public static class DependecyInjection
+    public static class DependencyInjection
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
