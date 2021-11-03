@@ -1,4 +1,6 @@
 using Net6WebApiTemplate.Application;
+using Net6WebApiTemplate.Infrastructure;
+using Net6WebApiTemplate.Persistence;
 using NLog.Web;
 using System.Reflection;
 
@@ -13,7 +15,7 @@ builder.Host.ConfigureLogging(logging =>
 })
 .UseNLog();  // NLog: Setup NLog for Dependency injection
 
-// loading appsettings.json based on environment
+// loading appsettings.json based on environment configurations
 builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 {
     var env = hostingContext.HostingEnvironment;
@@ -41,6 +43,9 @@ builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
 
 // Add services to the container.
 builder.Services.AddApplication();
+builder.Services.AddInfrastrucutre(builder.Configuration, builder.Environment);
+builder.Services.AddPersistence(builder.Configuration);
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

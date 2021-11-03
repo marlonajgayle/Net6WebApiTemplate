@@ -22,6 +22,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Net6WebApiTemplate.Domain\Net6WebApiTemplate.Domain.csproj" />
+    <ProjectReference Include="..\Net6WebApiTemplate.Infrastructure\Net6WebApiTemplate.Infrastructure.csproj" />
+    <ProjectReference Include="..\Net6WebApiTemplate.Persistence\Net6WebApiTemplate.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
