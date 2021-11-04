@@ -1,3 +1,4 @@
+using Net6WebApiTemplate.Api.Filters;
 using Net6WebApiTemplate.Application;
 using Net6WebApiTemplate.Infrastructure;
 using Net6WebApiTemplate.Persistence;
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure NLog
 var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-builder.Host.ConfigureLogging(logging => 
+builder.Host.ConfigureLogging(logging =>
 {
     logging.ClearProviders();
     logging.SetMinimumLevel(LogLevel.Trace);
@@ -50,6 +51,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllersWithViews(options =>
+    options.Filters.Add<ApiExceptionFilterAttribute>());
+
 
 var app = builder.Build();
 
