@@ -8,10 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Common\Interfaces\" />
-    <Folder Include="Common\Exceptions\" />
     <Folder Include="Common\Models\" />
     <Folder Include="Common\Mappings\" />
-    <Folder Include="Common\Behaviours\" />
   </ItemGroup>
 
   <ItemGroup>
