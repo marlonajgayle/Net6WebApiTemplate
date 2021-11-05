@@ -99,7 +99,7 @@ namespace Net6WebApiTemplate.Api.Filters
             {
                 StatusCode = StatusCodes.Status500InternalServerError
             };
-
+            Console.WriteLine(context.Exception.Message);
             context.ExceptionHandled = true;
         }
     }

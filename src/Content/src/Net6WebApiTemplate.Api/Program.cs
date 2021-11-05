@@ -68,6 +68,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Enable NWebSec Security Headers
+app.UseXContentTypeOptions();
+app.UseXXssProtection(options => options.EnabledWithBlockMode());
+app.UseXfo(options => options.SameOrigin());
+app.UseReferrerPolicy(options => options.NoReferrerWhenDowngrade());
+
+// Feature-Policy security header
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Feature-Policy", "geolocation 'none'; midi 'none';");
+    await next.Invoke();
+});
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
