@@ -1,6 +1,10 @@
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Net6WebApiTemplate.Api.Filters;
 using Net6WebApiTemplate.Application;
+using Net6WebApiTemplate.Application.HealthChecks;
 using Net6WebApiTemplate.Infrastructure;
 using Net6WebApiTemplate.Persistence;
+using Newtonsoft.Json;
 using NLog.Web;
 using System.Reflection;
 
@@ -8,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Configure NLog
 var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
-builder.Host.ConfigureLogging(logging => 
+builder.Host.ConfigureLogging(logging =>
 {
     logging.ClearProviders();
     logging.SetMinimumLevel(LogLevel.Trace);
@@ -50,6 +54,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllersWithViews(options =>
+    options.Filters.Add<ApiExceptionFilterAttribute>());
+
 
 var app = builder.Build();
 
@@ -64,6 +71,29 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+// Enable Health Check Middleware
+app.UseHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = async (context, report) =>
+    {
+        context.Response.ContentType = "application/json";
+
+        var response = new HealthCheckResponse()
+        {
+            Status = report.Status.ToString(),
+            Checks = report.Entries.Select(x => new HealthCheck
+            {
+                Status = x.Value.Status.ToString(),
+                Component = x.Key,
+                Description = x.Value.Description == null && x.Key.Contains("DbContext") ? app.Environment.EnvironmentName + "-db" : x.Value.Description
+            }),
+            Duration = report.TotalDuration
+        };
+
+        await context.Response.WriteAsync(text: JsonConvert.SerializeObject(response, Formatting.Indented));
+    }
+});
 
 app.MapControllers();
 
