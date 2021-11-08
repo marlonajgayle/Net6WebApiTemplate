@@ -57,6 +57,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
+// Configure HTTP Strict Transport Security Protocol (HSTS)
+builder.Services.AddHsts(options => 
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(1);
+});
+
 // Register and configure CORS
 builder.Services.AddCors(options => 
 {
@@ -69,17 +77,20 @@ builder.Services.AddCors(options =>
         });
 });
 
-
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local") || app.Environment.IsEnvironment("Test"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else 
+{
+    // Enable HTTP Strict Transport Security Protocol (HSTS)
+    app.UseHsts();
+}
 
-// Enable NWebSec Security Headers
+// Enable NWebSec Security Response Headers
 app.UseXContentTypeOptions();
 app.UseXXssProtection(options => options.EnabledWithBlockMode());
 app.UseXfo(options => options.SameOrigin());
