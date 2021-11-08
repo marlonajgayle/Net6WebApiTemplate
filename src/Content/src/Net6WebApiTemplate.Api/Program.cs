@@ -57,6 +57,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
+// Register and configure CORS
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy(name: "CorsPolicy", 
+        options => {
+            options.WithOrigins(builder.Configuration.GetSection("Origins").Value)
+            .WithMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
+            .AllowCredentials();
+
+        });
+});
+
 
 var app = builder.Build();
 
