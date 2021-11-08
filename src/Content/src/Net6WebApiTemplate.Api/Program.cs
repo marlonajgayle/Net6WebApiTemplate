@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Mvc;
 using Net6WebApiTemplate.Api.Filters;
 using Net6WebApiTemplate.Application;
 using Net6WebApiTemplate.Application.HealthChecks;
@@ -75,6 +76,22 @@ builder.Services.AddCors(options =>
             .AllowCredentials();
 
         });
+});
+
+// Register and Configure API versioning
+builder.Services.AddApiVersioning(options => 
+{ 
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1,0);
+    options.ReportApiVersions = true;
+});
+
+// Register and configure API versioning explorer
+builder.Services.AddVersionedApiExplorer(options => 
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+
 });
 
 var app = builder.Build();
