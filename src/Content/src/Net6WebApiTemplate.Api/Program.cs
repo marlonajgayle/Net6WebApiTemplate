@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Mvc;
 using Net6WebApiTemplate.Api.Filters;
 using Net6WebApiTemplate.Application;
 using Net6WebApiTemplate.Application.HealthChecks;
@@ -57,17 +58,56 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
+// Configure HTTP Strict Transport Security Protocol (HSTS)
+builder.Services.AddHsts(options => 
+{
+    options.Preload = true;
+    options.IncludeSubDomains = true;
+    options.MaxAge = TimeSpan.FromDays(1);
+});
+
+// Register and configure CORS
+builder.Services.AddCors(options => 
+{
+    options.AddPolicy(name: "CorsPolicy", 
+        options => {
+            options.WithOrigins(builder.Configuration.GetSection("Origins").Value)
+            .WithMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
+            .AllowCredentials();
+
+        });
+});
+
+// Register and Configure API versioning
+builder.Services.AddApiVersioning(options => 
+{ 
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.DefaultApiVersion = new ApiVersion(1,0);
+    options.ReportApiVersions = true;
+});
+
+// Register and configure API versioning explorer
+builder.Services.AddVersionedApiExplorer(options => 
+{
+    options.GroupNameFormat = "'v'VVV";
+    options.SubstituteApiVersionInUrl = true;
+
+});
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local") || app.Environment.IsEnvironment("Test"))
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+else 
+{
+    // Enable HTTP Strict Transport Security Protocol (HSTS)
+    app.UseHsts();
+}
 
-// Enable NWebSec Security Headers
+// Enable NWebSec Security Response Headers
 app.UseXContentTypeOptions();
 app.UseXXssProtection(options => options.EnabledWithBlockMode());
 app.UseXfo(options => options.SameOrigin());

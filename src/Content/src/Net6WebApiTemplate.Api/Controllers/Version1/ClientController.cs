@@ -8,6 +8,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
 {
     [Produces("application/json")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class ClientController : ControllerBase
     {
         private readonly IMediator _mediator;
