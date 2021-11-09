@@ -1,3 +1,4 @@
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc;
 using Net6WebApiTemplate.Api.Filters;
@@ -46,7 +47,25 @@ builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
     }
 });
 
-// Add services to the container.
+//--- Add services to the container.
+// needed to load configuration from appsettings.json
+builder.Services.AddOptions();
+
+// needed to store rate limit counters and ip rules
+builder.Services.AddMemoryCache();
+
+//load general configuration from appsettings.json
+builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
+
+// inject counter and rules stores
+builder.Services.AddSingleton<IIpPolicyStore, MemoryCacheIpPolicyStore>();
+builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounterStore>();
+
+// configuration (resolvers, counter key builders)
+builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
+builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
+
+// Add Project references
 builder.Services.AddApplication();
 builder.Services.AddInfrastrucutre(builder.Configuration, builder.Environment);
 builder.Services.AddPersistence(builder.Configuration);
@@ -94,8 +113,8 @@ builder.Services.AddVersionedApiExplorer(options =>
 
 });
 
+//-- Configure the HTTP request pipeline.
 var app = builder.Build();
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local") || app.Environment.IsEnvironment("Test"))
 {
     app.UseSwagger();
@@ -119,6 +138,9 @@ app.Use(async (context, next) =>
     context.Response.Headers.Add("Feature-Policy", "geolocation 'none'; midi 'none';");
     await next.Invoke();
 });
+
+// Enable IP Rate Limiting Middleware
+app.UseIpRateLimiting();
 
 app.UseHttpsRedirection();
 
