@@ -1,6 +1,8 @@
 using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Net6WebApiTemplate.Api.Filters;
 using Net6WebApiTemplate.Application;
 using Net6WebApiTemplate.Application.HealthChecks;
@@ -8,6 +10,7 @@ using Net6WebApiTemplate.Infrastructure;
 using Net6WebApiTemplate.Persistence;
 using Newtonsoft.Json;
 using NLog.Web;
+using System.Globalization;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -65,6 +68,11 @@ builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounte
 builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
 
+// Register and configure localization services
+builder.Services.AddLocalization(options => options.ResourcesPath = "Localization");
+builder.Services.AddMvc()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
+
 // Add Project references
 builder.Services.AddApplication();
 builder.Services.AddInfrastrucutre(builder.Configuration, builder.Environment);
@@ -78,7 +86,7 @@ builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
 // Configure HTTP Strict Transport Security Protocol (HSTS)
-builder.Services.AddHsts(options => 
+builder.Services.AddHsts(options =>
 {
     options.Preload = true;
     options.IncludeSubDomains = true;
@@ -86,10 +94,11 @@ builder.Services.AddHsts(options =>
 });
 
 // Register and configure CORS
-builder.Services.AddCors(options => 
+builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: "CorsPolicy", 
-        options => {
+    options.AddPolicy(name: "CorsPolicy",
+        options =>
+        {
             options.WithOrigins(builder.Configuration.GetSection("Origins").Value)
             .WithMethods("OPTIONS", "GET", "POST", "PUT", "DELETE")
             .AllowCredentials();
@@ -98,15 +107,15 @@ builder.Services.AddCors(options =>
 });
 
 // Register and Configure API versioning
-builder.Services.AddApiVersioning(options => 
-{ 
+builder.Services.AddApiVersioning(options =>
+{
     options.AssumeDefaultVersionWhenUnspecified = true;
-    options.DefaultApiVersion = new ApiVersion(1,0);
+    options.DefaultApiVersion = new ApiVersion(1, 0);
     options.ReportApiVersions = true;
 });
 
 // Register and configure API versioning explorer
-builder.Services.AddVersionedApiExplorer(options => 
+builder.Services.AddVersionedApiExplorer(options =>
 {
     options.GroupNameFormat = "'v'VVV";
     options.SubstituteApiVersionInUrl = true;
@@ -120,11 +129,33 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local") ||
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-else 
+else
 {
     // Enable HTTP Strict Transport Security Protocol (HSTS)
     app.UseHsts();
 }
+
+// List of supported cultures for localization used in RequestLocalizationOptions
+var supportedCultures = new[]
+{
+    new CultureInfo("en"),
+    new CultureInfo("es")
+};
+
+// Configure RequestLocalizationOptions with supported culture
+var requestLocalizationOptions = new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new RequestCulture("en"),
+
+    // Formatting numbers, date etc.
+    SupportedCultures = supportedCultures,
+
+    // UI strings that are localized
+    SupportedUICultures = supportedCultures
+};
+
+// Enable Request Localization
+app.UseRequestLocalization(requestLocalizationOptions);
 
 // Enable NWebSec Security Response Headers
 app.UseXContentTypeOptions();

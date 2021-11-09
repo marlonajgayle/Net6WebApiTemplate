@@ -1,13 +1,18 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace Net6WebApiTemplate.Application.Clients.Commands.CreateClient
 {
     public class CreateClientCommandValidator : AbstractValidator<CreateClientCommand>
     {
-        public CreateClientCommandValidator()
+        private readonly IStringLocalizer<Messages> _localizer;
+
+        public CreateClientCommandValidator(IStringLocalizer<Messages> localizer)
         {
+            _localizer = localizer;
+
             RuleFor(v => v.FirstName)
-                .NotEmpty().WithMessage("First Name field is required.");
+                .NotEmpty().WithMessage(_localizer["FNameRequired"].Value);
 
             RuleFor(v => v.LastName)
                 .NotEmpty().WithMessage("Last Name field is required.");
