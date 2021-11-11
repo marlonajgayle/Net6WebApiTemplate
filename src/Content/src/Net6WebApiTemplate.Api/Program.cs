@@ -2,14 +2,18 @@ using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.OpenApi.Models;
 using Net6WebApiTemplate.Api.Filters;
+using Net6WebApiTemplate.Api.Options;
 using Net6WebApiTemplate.Application;
 using Net6WebApiTemplate.Application.HealthChecks;
 using Net6WebApiTemplate.Infrastructure;
 using Net6WebApiTemplate.Persistence;
 using Newtonsoft.Json;
 using NLog.Web;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Globalization;
 using System.Reflection;
 
@@ -80,8 +84,57 @@ builder.Services.AddPersistence(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Swagger OpenAPI Configuration
+var swaggerDocOptions = new SwaggerDocOptions();
+builder.Configuration.GetSection(nameof(SwaggerDocOptions)).Bind(swaggerDocOptions);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddOptions<SwaggerGenOptions>()
+    .Configure<IApiVersionDescriptionProvider>((swagger, service) => 
+    {
+        foreach (ApiVersionDescription description in service.ApiVersionDescriptions)
+        {
+            swagger.SwaggerDoc(description.GroupName, new OpenApiInfo
+            {
+                Title = swaggerDocOptions.Title,
+                Version = description.ApiVersion.ToString(),
+                Description = swaggerDocOptions.Description,
+                TermsOfService = new Uri("https://github.com/marlonajgayle/Net6WebApiTemplate/blob/develop/LICENSE.md"),
+                Contact = new OpenApiContact
+                {
+                    Name = swaggerDocOptions.Organization,
+                    Email = swaggerDocOptions.Email
+                },
+                License = new OpenApiLicense 
+                {
+                    Name = "MIT",
+                    Url = new Uri("https://github.com/marlonajgayle/Net6WebApiTemplate")
+                }
+            });
+        }
+
+        var security = new Dictionary<string, IEnumerable<string>>
+        {
+            {"Bearer", new string[0]}
+        };
+
+        swagger.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+        {
+            Description = "JWT Authorization header using the Bearer scheme.",
+            Name = "Authorization",
+            In = ParameterLocation.Header,
+            Type = SecuritySchemeType.ApiKey,
+            Scheme = "Bearer"
+        });
+
+        swagger.OperationFilter<AuthorizeCheckOperationFilter>();
+
+        var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+        swagger.IncludeXmlComments(xmlPath);
+
+    });
+
 builder.Services.AddControllersWithViews(options =>
     options.Filters.Add<ApiExceptionFilterAttribute>());
 
