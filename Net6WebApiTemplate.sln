@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B733ACF3-AB4B-4395-AFB0-7D834B105896}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
+		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
