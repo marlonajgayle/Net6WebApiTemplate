@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  webapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Local"
+      - "ASPNETCORE_URLS=https://+:443;http://+:80"
+      - "ConnectionStrings__Net5WebTemplateDbConnection=server=db_server;Database=applicationdb;User=sa;Password=password;MultipleActiveResultSets=true"
+      - "ASPNETCORE_kestrel__Certificates__Default__Password=Password123"
+      - "ASPNETCORE_kestrel__Certificates__Default__Path=/https/aspnetapp.pfx"
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+    depends_on:
+      - db_server
+    restart: on-failure
+
+  db_server:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+      - "SA_PASSWORD=password"
+      - "ACCEPT_EULA=Y"
