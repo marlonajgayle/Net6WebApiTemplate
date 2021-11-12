@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Net6WebTemplate</id>
+    <version>$version$</version>
+    <description>
+      This is a multi-project solution dotnet template for creating an enterprise-level Web API 
+      using .NET 6 ASP.NET Core using the Clean Architecture principles and API best practicies.
+    </description>
+    <authors>Marlon A. J. Gayle</authors>
+    <license type="expression">MIT</license>
+    <repository type="git" url="https://github.com/marlonajgayle/Net6WebApiTemplate" />
+    <packageTypes>
+      <packageType name="Template" />
+    </packageTypes>
+    <tags>c-sharp dotnet core template API</tags>
+  </metadata>
+  <files>
+    <file src="Content\**\*.*" exclude="Content\**\bin\**\*.*;Content\**\obj\**\*.*;" target="Content" />
+  </files>  
+</package>

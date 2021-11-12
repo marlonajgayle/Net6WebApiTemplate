@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Marlon A. J. Gayle",
+  "classifications": [ ".NET 6 Web API Template", "Cloud", "Service", "Web" ],
+  "identity": "marlonajgayle.net6.web.template",
+  "name": "NET 6 Web API Template",
+  "shortName": "net6webapi",
+  "defaultName": "Application",
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "sourceName": "Net6WebApiTemplate",
+  "description": "A project template for creating ASP.NET Core 6 Web API milti-project solution for Windows, Linux and macOS using Clean Architecture and CQRS. ",
+  "preferNameDirectory": true,
+  "guids": [
+    "EE3C48D0-8BA9-4437-A077-C9EA306865AF",
+    "6A012AB4-37FC-4B00-B30E-ECE98D4831DC",
+    "F40433CF-D985-4B05-9F77-9BB092E9A7AD",
+    "A3C0F9B1-F117-4B55-9836-BDF979527D98",
+    "2F35673F-94C6-4ECD-85E9-272364577B14",
+    "2D0AFD74-57D2-48EE-8C06-4126BC5ED0BE",
+    "E7632C6A-E1F6-4DAF-84C8-5A914ED8A83E"
+  ],
+  "primaryOutputs": [
+    { "path": "Net6WebApiTemplate.sln" }
+  ],
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!ReadMe)",
+          "exclude": [
+            "README.md"
+          ]
+        },
+        {
+          "condition": "(!License)",
+          "exclude": [
+            "LICENSE.md"
+          ]
+        },
+        {
+          "condition": "(!GitIgnore)",
+          "exclude": [
+            ".gitignore",
+            ".gitattributes"
+          ]
+        },
+        {
+          "condition": "(!Docker)",
+          "exclude": [
+            "src/Content/src/Dockerfile",
+            "src/Content/src/.dockerignore",
+            "src/Content/src/dockercompose.yml"
+          ]
+        }
+      ]
+    }
+  ],
+  "symbols": {
+    "Title": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Project Title",
+      "description": "The name of the project which determines the assembly product name."
+    },
+    "Description": {
+      "type": "parameter",
+      "datatype": "string",
+      "defaultValue": "Project Description",
+      "description": "A description of the project which determines the assembly description."
+    },
+    "ReadMe": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include a Read Me file (ReadMe.md) in the solution."
+    },
+    "License": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include an MIT License file (License.md) in the solution."
+    },
+    "GitIgnore": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "true",
+      "description": "Include a Git Ignore files (.gitignore & .gitattributes) in the solution."
+    }
+  }
+}
