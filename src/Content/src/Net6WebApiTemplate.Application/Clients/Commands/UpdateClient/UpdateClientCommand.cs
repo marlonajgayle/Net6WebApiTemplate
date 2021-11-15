@@ -1,0 +1,11 @@
+﻿using MediatR;
+
+namespace Net6WebApiTemplate.Application.Clients.Commands.UpdateClient
+{
+    public class UpdateClientCommand : IRequest
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+    }
+}
