@@ -1,10 +1,12 @@
 ﻿using FluentEmail.MailKitSmtp;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Net6WebApiTemplate.Application.Common.Interfaces;
+using Net6WebApiTemplate.Infrastructure.Cache.InMemory;
+using Net6WebApiTemplate.Infrastructure.DataProtection;
 using Net6WebApiTemplate.Infrastructure.Notifications.Email;
-using System.Text;
 
 namespace Net6WebApiTemplate.Infrastructure
 {
@@ -12,6 +14,15 @@ namespace Net6WebApiTemplate.Infrastructure
     {
         public static IServiceCollection AddInfrastrucutre(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment environment)
         {
+            // Register Data Protection Services
+            services.AddDataProtection()
+                .SetDefaultKeyLifetime(TimeSpan.FromDays(30));
+            services.AddSingleton<IDataEncryption, RouteDataProtection>();
+
+            // Register InMemory Cache services
+            services.AddMemoryCache();
+            services.AddSingleton<ICacheProvider, CacheProvider>();
+
             // Register Fluent Email Services
             var emailConfig = new EmailConfiguration();
             configuration.GetSection(nameof(EmailConfiguration)).Bind(emailConfig);

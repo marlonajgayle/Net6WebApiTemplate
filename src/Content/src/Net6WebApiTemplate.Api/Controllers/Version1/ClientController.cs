@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Net6WebApiTemplate.Api.Contracts.Version1.Requests;
 using Net6WebApiTemplate.Api.Routes.Version1;
 using Net6WebApiTemplate.Application.Clients.Commands.CreateClient;
+using Net6WebApiTemplate.Application.Clients.Commands.DeleteClient;
 using Net6WebApiTemplate.Application.Clients.Commands.Queries.GetClientByIdQuery;
 using Net6WebApiTemplate.Application.Clients.Commands.Queries.GetClientsQuery;
 using Net6WebApiTemplate.Application.Clients.Commands.UpdateClient;
@@ -27,6 +28,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         /// <param name="request"></param>
         /// <returns></returns>
         /// <response code="201">Success creating new client</response>
+        /// <response code="400">Bad request</response>
         /// <response code ="429">Too Many Requests</response>
         [HttpPost]
         [Route(ApiRoutes.Client.Create)]
@@ -56,6 +58,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         /// <param name="id"></param>
         /// <returns></returns> 
         /// <response code="200">Success Retrieve Client by Id</response>
+        /// <response code="400">Bad request</response>
         /// <response code ="429">Too Many Requests</response>
         [HttpGet]
         [Route(ApiRoutes.Client.Get)]
@@ -77,6 +80,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         /// </summary>
         /// <returns></returns>
         /// <response code="200">Success retrieving client list</response>
+        /// <response code="400">Bad request</response>
         /// <response code ="429">Too Many Requests</response>
         [HttpGet]
         [Route(ApiRoutes.Client.GetAll)]
@@ -91,15 +95,16 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         }
 
         /// <summary>
-        /// Update exsiting Client
+        /// Update an exsiting Client
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         /// <response code="200">Success updating exsiting client</response>
+        /// <response code="400">Bad request</response>
         /// <response code ="429">Too Many Requests</response>
         [HttpPatch]
         [Route(ApiRoutes.Client.Update)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Update([FromBody] ClientRequest request)
         {
@@ -109,6 +114,26 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
                FirstName = request.FirstName,
                LastName = request.LastName
             };
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
+
+        /// <summary>
+        ///  Delete an existing client
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <response code="204">Success delete an exsiting client</response>
+        /// <response code="400">Bad request</response>
+        /// <response code ="429">Too Many Requests</response>
+        [HttpDelete]
+        [Route(ApiRoutes.Client.Delete)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Delete([FromQuery] int id)
+        {
+            var command = new DeleteClientCommand { Id = id };
             await _mediator.Send(command);
 
             return NoContent();
