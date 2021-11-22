@@ -57,7 +57,7 @@ To setup the SQL Server database following the instrcutions below:
 3. Run `dotnet ef database update Initial` to create application database.
 
 ## Contributions
-- [Demar-j](https://github.com/Demar-j) - .
+- [Demar-j](https://github.com/Demar-j) - Implemented API endpoints, Unit and Integration tests.
 - [mahousen](https://github.com/mahousen) - .
 
 ## Credits
