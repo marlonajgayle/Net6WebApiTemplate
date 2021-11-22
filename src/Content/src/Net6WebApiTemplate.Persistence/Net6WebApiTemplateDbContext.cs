@@ -10,6 +10,7 @@ namespace Net6WebApiTemplate.Persistence
     public class Net6WebApiTemplateDbContext : IdentityDbContext<ApplicationUser>, INet6WebApiTemplateDbContext
     {
         public DbSet<Client> Clients { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public Net6WebApiTemplateDbContext(DbContextOptions<Net6WebApiTemplateDbContext> options)
             : base(options)
