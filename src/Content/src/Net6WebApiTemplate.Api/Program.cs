@@ -228,6 +228,8 @@ app.UseIpRateLimiting();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 // Enable Health Check Middleware
