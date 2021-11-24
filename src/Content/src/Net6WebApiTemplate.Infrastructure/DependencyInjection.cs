@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Net6WebApiTemplate.Application.Common.Interfaces;
 using Net6WebApiTemplate.Infrastructure.Cache.InMemory;
 using Net6WebApiTemplate.Infrastructure.DataProtection;
+using Net6WebApiTemplate.Infrastructure.Identity;
 using Net6WebApiTemplate.Infrastructure.Notifications.Email;
 using Net6WebApiTemplate.Infrastructure.Oauth;
 using System.Text;
@@ -20,6 +21,7 @@ namespace Net6WebApiTemplate.Infrastructure
         {
             // Register OAuth services
             services.AddTransient<IJwtTokenManager, JwtTokenManager>();
+            services.AddScoped<ISignInManager, SignInManager>();
 
             // Configure JWT Authentication and Authorization
             var jwtSettings = new JwtSettings();
