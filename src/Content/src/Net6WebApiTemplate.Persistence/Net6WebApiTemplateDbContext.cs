@@ -11,6 +11,8 @@ namespace Net6WebApiTemplate.Persistence
     {
         public DbSet<Client> Clients { get; set; }
 
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
         public Net6WebApiTemplateDbContext(DbContextOptions<Net6WebApiTemplateDbContext> options)
             : base(options)
         {
