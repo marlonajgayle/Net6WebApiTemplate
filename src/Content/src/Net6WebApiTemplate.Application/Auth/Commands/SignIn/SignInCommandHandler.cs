@@ -2,14 +2,14 @@
 
 namespace Net6WebApiTemplate.Application.Auth.Commands.SignIn
 {
-    public class SignInCommandHandler : IRequestHandler<SignInCommand, AuthResponse>
+    public class SignInCommandHandler : IRequestHandler<SignInCommand, AuthResult>
     {
         public SignInCommandHandler()
         {
 
         }
 
-        public Task<AuthResponse> Handle(SignInCommand request, CancellationToken cancellationToken)
+        public Task<AuthResult> Handle(SignInCommand request, CancellationToken cancellationToken)
         {
             // validate username & password 
             // Throw exception if username & password validation failed

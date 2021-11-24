@@ -1,6 +1,6 @@
 ﻿namespace Net6WebApiTemplate.Application.Auth
 {
-    public class AuthResponse
+    public class AuthResult
     {
         public string AccessToken { get; set; }
         public string TokenType { get; set; }
