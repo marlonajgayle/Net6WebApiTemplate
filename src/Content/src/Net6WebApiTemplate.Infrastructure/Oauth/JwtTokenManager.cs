@@ -45,14 +45,33 @@ namespace Net6WebApiTemplate.Infrastructure.Oauth
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
 
+            var refreshTokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id), // TODO: encrypt user id for added security
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(JwtRegisteredClaimNames.Iss, _jwtSettings.Issuer),
+                    new Claim(JwtRegisteredClaimNames.Iat, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Nbf, new DateTimeOffset(DateTime.Now).ToUnixTimeSeconds().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Exp, new DateTimeOffset(DateTime.Now.AddMinutes(30)).ToUnixTimeSeconds().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+
+                }),
+                Expires = DateTime.UtcNow.Add(_jwtSettings.Expiration),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            // Create JWT tokens
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            var refreshtoken = tokenHandler.CreateToken(refreshTokenDescriptor);
 
             return new AuthResult
             {
                 AccessToken = tokenHandler.WriteToken(token),
                 TokenType = "Bearer",
                 ExpiresIn = _jwtSettings.Expiration.Seconds,
-                RefreshToken = ""
+                RefreshToken = tokenHandler.WriteToken(refreshtoken)
             };
         }
 
