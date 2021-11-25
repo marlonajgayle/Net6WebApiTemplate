@@ -9,6 +9,8 @@ namespace Net6WebApiTemplate.Persistence
 {
     public class Net6WebApiTemplateDbContext : IdentityDbContext<ApplicationUser>, INet6WebApiTemplateDbContext
     {
+        private readonly ICurrentUserService _currentUserService;
+
         public DbSet<Client> Clients { get; set; }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
@@ -18,6 +20,13 @@ namespace Net6WebApiTemplate.Persistence
         {
         }
 
+        public Net6WebApiTemplateDbContext(DbContextOptions<Net6WebApiTemplateDbContext> options,
+            ICurrentUserService currentUserService)
+            : base(options)
+        {
+            _currentUserService = currentUserService;
+        }
+
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             foreach (var entry in ChangeTracker.Entries<AuditableEntity>())
@@ -25,11 +34,11 @@ namespace Net6WebApiTemplate.Persistence
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        //entry.Entity.CreatedBy = _currentUserService.UserId;
+                        entry.Entity.CreatedBy = _currentUserService.UserId;
                         entry.Entity.Created = DateTime.UtcNow;
                         break;
                     case EntityState.Modified:
-                        //entry.Entity.LastModifiedBy = _currentUserService.UserId;
+                        entry.Entity.LastModifiedBy = _currentUserService.UserId;
                         entry.Entity.LastModified = DateTime.UtcNow;
                         break;
                 }
