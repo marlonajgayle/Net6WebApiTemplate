@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.OpenApi.Models;
 using Net6WebApiTemplate.Api.Filters;
 using Net6WebApiTemplate.Api.Options;
+using Net6WebApiTemplate.Api.Services;
 using Net6WebApiTemplate.Application;
+using Net6WebApiTemplate.Application.Common.Interfaces;
 using Net6WebApiTemplate.Application.HealthChecks;
 using Net6WebApiTemplate.Infrastructure;
 using Net6WebApiTemplate.Persistence;
@@ -61,7 +63,7 @@ builder.Services.AddOptions();
 // needed to store rate limit counters and ip rules
 builder.Services.AddMemoryCache();
 
-//load general configuration from appsettings.json
+// load general configuration from appsettings.json
 builder.Services.Configure<IpRateLimitOptions>(builder.Configuration.GetSection("IpRateLimiting"));
 
 // inject counter and rules stores
@@ -72,12 +74,15 @@ builder.Services.AddSingleton<IRateLimitCounterStore, MemoryCacheRateLimitCounte
 builder.Services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
 builder.Services.AddSingleton<IProcessingStrategy, AsyncKeyLockProcessingStrategy>();
 
+// Register CurrentUserService
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+
 // Register and configure localization services
 builder.Services.AddLocalization(options => options.ResourcesPath = "Localization");
 builder.Services.AddMvc()
     .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix);
 
-// Add Project references
+// Add library project references
 builder.Services.AddApplication();
 builder.Services.AddInfrastrucutre(builder.Configuration, builder.Environment);
 builder.Services.AddPersistence(builder.Configuration);
@@ -90,7 +95,7 @@ builder.Configuration.GetSection(nameof(SwaggerDocOptions)).Bind(swaggerDocOptio
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOptions<SwaggerGenOptions>()
-    .Configure<IApiVersionDescriptionProvider>((swagger, service) => 
+    .Configure<IApiVersionDescriptionProvider>((swagger, service) =>
     {
         foreach (ApiVersionDescription description in service.ApiVersionDescriptions)
         {
@@ -105,7 +110,7 @@ builder.Services.AddOptions<SwaggerGenOptions>()
                     Name = swaggerDocOptions.Organization,
                     Email = swaggerDocOptions.Email
                 },
-                License = new OpenApiLicense 
+                License = new OpenApiLicense
                 {
                     Name = "MIT",
                     Url = new Uri("https://github.com/marlonajgayle/Net6WebApiTemplate")
@@ -227,6 +232,8 @@ app.Use(async (context, next) =>
 app.UseIpRateLimiting();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

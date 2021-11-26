@@ -11,6 +11,7 @@ using Net6WebApiTemplate.Application.Clients.Commands.UpdateClient;
 namespace Net6WebApiTemplate.Api.Controllers.Version1
 {
     [Produces("application/json")]
+    [Consumes("application/json")]
     [ApiController]
     [ApiVersion("1.0")]
     public class ClientController : ControllerBase

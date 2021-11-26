@@ -6,6 +6,7 @@ namespace Net6WebApiTemplate.Application.Common.Interfaces
     public interface INet6WebApiTemplateDbContext
     {
         DbSet<Client> Clients { get; set; }
+        DbSet<RefreshToken> RefreshTokens { get; set; }
 
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
