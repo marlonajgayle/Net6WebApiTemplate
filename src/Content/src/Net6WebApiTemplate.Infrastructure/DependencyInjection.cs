@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -53,6 +54,25 @@ namespace Net6WebApiTemplate.Infrastructure
                 options.SaveToken = true;
                 options.TokenValidationParameters = tokenValidationParameters;
             });
+
+            // Register Identity DbContext and Server
+            services.AddDbContext<ApplicationIdentityDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("Net6WebApiConnection")));
+
+            var identityOptionsConfig = new IdentityOptions();
+            configuration.GetSection(nameof(IdentityOptions)).Bind(identityOptionsConfig);
+
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.Password.RequiredLength = identityOptionsConfig.RequiredLength;
+                options.Password.RequireDigit = identityOptionsConfig.RequiredDigit;
+                options.Password.RequireLowercase = identityOptionsConfig.RequireLowercase;
+                options.Password.RequiredUniqueChars = identityOptionsConfig.RequiredUniqueChars;
+                options.Password.RequireUppercase = identityOptionsConfig.RequireUppercase;
+                options.Lockout.MaxFailedAccessAttempts = identityOptionsConfig.MaxFailedAttempts;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(identityOptionsConfig.LockoutTimeSpanInDays);
+            })
+            .AddEntityFrameworkStores<ApplicationIdentityDbContext>();
 
             // Register Data Protection Services
             services.AddDataProtection()

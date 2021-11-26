@@ -4,6 +4,7 @@ using Net6WebApiTemplate.Application.Common.Interfaces;
 using Net6WebApiTemplate.Domain.Common;
 using Net6WebApiTemplate.Domain.Entities;
 using Net6WebApiTemplate.Infrastructure.Identity;
+using Net6WebApiTemplate.Persistence.Configurations;
 
 namespace Net6WebApiTemplate.Persistence
 {
@@ -52,6 +53,18 @@ namespace Net6WebApiTemplate.Persistence
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(Net6WebApiTemplateDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
+
+            // Customize ASP.NET Identity models and override defaults
+            // such as renaming ASP.NET Identity, changing key types etc.
+            modelBuilder.ApplyConfiguration(new ApplicationUserConfigurations());
+            modelBuilder.ApplyConfiguration(new IdentityUserRoleConfigurations());
+            modelBuilder.ApplyConfiguration(new IdentityRoleClaimConfigurations());
+            modelBuilder.ApplyConfiguration(new IdentityUserClaimConfigurations());
+            modelBuilder.ApplyConfiguration(new IdentityUserLoginConfigurations());
+            modelBuilder.ApplyConfiguration(new IdentityUserClaimConfigurations());
+            modelBuilder.ApplyConfiguration(new IdentityRoleConfigurations());
+            modelBuilder.ApplyConfiguration(new IdentityUserTokenConfigurations());
+
         }
     }
 }
