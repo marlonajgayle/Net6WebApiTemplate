@@ -2,8 +2,8 @@
 {
     public class HealthCheckResponse
     {
-        public string Status { get; set; }
-        public IEnumerable<HealthCheck> Checks { get; set; }
-        public TimeSpan Duration { get; set; }
+        public string OverallStatus { get; set; }
+        public IEnumerable<HealthCheck> HealthChecks { get; set; }
+        public string TotalDuration { get; set; }
     }
 }

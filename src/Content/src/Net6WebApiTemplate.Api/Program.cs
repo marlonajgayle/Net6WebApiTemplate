@@ -235,29 +235,18 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
+app.UseRouting();
+
 app.UseAuthorization();
 
-// Enable Health Check Middleware
-app.UseHealthChecks("/health", new HealthCheckOptions
+app.UseEndpoints(endpoints =>
 {
-    ResponseWriter = async (context, report) =>
+    endpoints.MapHealthChecks("/health", new HealthCheckOptions()
     {
-        context.Response.ContentType = "application/json";
+        ResponseWriter = HealthCheckResponseWriter.WriteHealthCheckResponse,
+        AllowCachingResponses = false,
 
-        var response = new HealthCheckResponse()
-        {
-            Status = report.Status.ToString(),
-            Checks = report.Entries.Select(x => new HealthCheck
-            {
-                Status = x.Value.Status.ToString(),
-                Component = x.Key,
-                Description = x.Value.Description == null && x.Key.Contains("DbContext") ? app.Environment.EnvironmentName + "-db" : x.Value.Description
-            }),
-            Duration = report.TotalDuration
-        };
-
-        await context.Response.WriteAsync(text: JsonConvert.SerializeObject(response, Formatting.Indented));
-    }
+    });
 });
 
 app.MapControllers();
