@@ -11,7 +11,7 @@ namespace Net6WebApiTemplate.Persistence
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHealthChecks()
-                .AddDbContextCheck<Net6WebApiTemplateDbContext>();
+                .AddDbContextCheck<Net6WebApiTemplateDbContext>(name: "Application Database");
 
             services.AddDbContext<Net6WebApiTemplateDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Net6WebApiConnection"),
