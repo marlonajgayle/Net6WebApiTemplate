@@ -20,4 +20,12 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Net6WebApiTemplate.Persistence\Net6WebApiTemplate.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Client\Queries\" />
+  </ItemGroup>
+
 </Project>
