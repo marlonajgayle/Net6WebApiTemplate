@@ -8,7 +8,7 @@ namespace Net6WebApiTemplate.UnitTests.Client.Commands.CreateClient
     public class CreateClientCommandTest : TestBase
     {
         [Fact]
-        public void Handle_GivenValidRequestShouldRespondWithIsCompleted()
+        public void Should_AddNewClient_When_RequestValid()
         {
             // Arrange
             var sut = new CreateClientCommandHandler(_context);
