@@ -1,0 +1,36 @@
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Net6WebApiTemplate.Application.Common.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Net6WebApiTemplate.Application.Products.NQueries.GetProducts
+{
+    public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, IList<ProductDto>>
+    {
+        private readonly INet6WebApiTemplateDbContext _dbContext;
+
+        public GetProductsQueryHandler(INet6WebApiTemplateDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+        public async Task<IList<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
+        {
+            var products = await _dbContext.Products
+               .Select(product => new ProductDto
+               {
+                   Id = product.Id,
+                   ProductName = product.ProductName,
+                   UnitPrice = product.UnitPrice,
+                   CategoryId = product.CategoryId
+               })
+               .ToListAsync(cancellationToken);
+
+            return products;
+
+        }
+    }
+}

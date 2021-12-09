@@ -1,10 +1,10 @@
+using Net6WebApiTemplate.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Net6WebApiTemplate.Domain.Entities;
 
 namespace Net6WebApiTemplate.Persistence.Configurations
 {
-    internal class ProductConfigurations : IEntityTypeConfiguration<Product>
+    public class ProductConfigurations : IEntityTypeConfiguration<Product> 
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {

@@ -11,14 +11,22 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
     public CreateProductCommandHandler(IMediator mediator, INet6WebApiTemplateDbContext dbContext)
 	{
         _mediator = mediator;
-        _dbContext=dbContext;
+        _dbContext = dbContext;
     }
 
-    public Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
-         _dbContext.Products.Add(request);
+        Product product = new()
+        {
+            Category = request.Category,
+            CategoryId = request.CategoryId,
+            ProductName = request.ProductName,
+            UnitPrice = request.UnitPrice
+        };
+
+         _dbContext.Products.Add(product);
          await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return Unit.Value;
+        return product;
     }
 }

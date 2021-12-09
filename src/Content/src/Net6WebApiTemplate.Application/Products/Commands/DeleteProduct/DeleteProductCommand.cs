@@ -3,5 +3,5 @@ using System;
 
 public class DeleteProductCommand : IRequest<bool>
 {
-    public int id { get; set; }
+    public int Id { get; set; }
 }
