@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Net6WebApiTemplate.Application.Products.NQueries.GetProducts
+namespace Net6WebApiTemplate.Application.Products.Dto
 {
     public class ProductDto
     {

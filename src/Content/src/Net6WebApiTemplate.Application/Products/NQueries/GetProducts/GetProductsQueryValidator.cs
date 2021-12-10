@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Net6WebApiTemplate.Application.Products.NQueries.GetProducts
 {
-    internal class GetProductsQueryValidator
+    public class GetProductsQueryValidator
     {
     }
 }

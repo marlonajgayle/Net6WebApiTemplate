@@ -20,6 +20,7 @@ namespace Net6WebApiTemplate.Application.Clients.Commands.CreateClient
                 FirstName = request.FirstName,
                 MiddleName = request.MiddleName,
                 LastName = request.LastName,
+                Trn = request.Trn,
                 Address = new(request.AddressLine1, request.AddressLine2, request.Parish)
             };
 

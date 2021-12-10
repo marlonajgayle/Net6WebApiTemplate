@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Net6WebApiTemplate.Application.Common.Exceptions;
 using Net6WebApiTemplate.Application.Common.Interfaces;
-
+namespace Net6WebApiTemplate.Application.Products.Commands.DeleteProduct;
 public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, bool>
 {
     private readonly IMediator _mediator;

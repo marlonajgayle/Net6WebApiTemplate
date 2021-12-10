@@ -1,4 +1,8 @@
+<img align="left" width="116" height="116" src="https://raw.githubusercontent.com/marlonajgayle/Net6WebApiTemplate/develop/src/Content/.template.config/icon.png" />
+
 # .NET 6 Web Api Template
+[![Build](https://github.com/marlonajgayle/Net6WebApiTemplate/actions/workflows/dotnet.yml/badge.svg?branch=develop)](https://github.com/marlonajgayle/Net6WebApiTemplate/actions/workflows/dotnet.yml)
+[![CodeQL](https://github.com/marlonajgayle/Net6WebApiTemplate/actions/workflows/codeql-analysis.yml/badge.svg?branch=develop)](https://github.com/marlonajgayle/Net6WebApiTemplate/actions/workflows/codeql-analysis.yml)
 
 This is a multi-project solution dotnet template for creating an enterprise-level Web API using .NET 6 ASP.NET Core using the
 Clean Architecture principles and API best practicies.
@@ -53,7 +57,7 @@ To setup the SQL Server database following the instrcutions below:
 3. Run `dotnet ef database update Initial` to create application database.
 
 ## Contributions
-- [Demar-j](https://github.com/Demar-j) - .
+- [Demar-j](https://github.com/Demar-j) - Implemented API endpoints, Unit and Integration tests.
 - [mahousen](https://github.com/mahousen) - .
 
 ## Credits
@@ -65,5 +69,5 @@ Icon made by [Flat Icons](https://www.flaticon.com/authors/flat-icons) from [www
 The [main](https://github.com/marlonajgayle/Net6WebApiTemplate/main) branch is running .NET 6.0
 
 ## License
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/marlonajgayle/The [main](https://github.com/marlonajgayle/Net6WebApiTemplate/main) branch is running .NET 6.0
-/main/LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/marlonajgayle/Net6WebApiTemplate/main/LICENSE.md) [main](https://github.com/marlonajgayle/Net6WebApiTemplate/main) branch is running .NET 6.0
+file for details.

@@ -1,11 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Net6WebApiTemplate.Application.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Net6WebApiTemplate.Application.Products.Dto;
 
 namespace Net6WebApiTemplate.Application.Products.NQueries.GetProducts
 {

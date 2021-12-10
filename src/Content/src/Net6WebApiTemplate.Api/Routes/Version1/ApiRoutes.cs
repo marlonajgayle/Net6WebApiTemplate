@@ -6,6 +6,11 @@
         public const string Version = "v{version:apiVersion}";
         public const string Base = Domain + "/" + Version;
 
+        public static class Auth
+        {
+            public const string SignIn = Base + "/signin";
+        }
+
         public static class Client
         {
             public const string Create = Base + "/clients";

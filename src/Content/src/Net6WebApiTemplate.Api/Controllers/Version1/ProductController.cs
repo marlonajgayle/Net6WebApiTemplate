@@ -2,11 +2,11 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Net6WebApiTemplate.Api.Contracts.Version1.Requests;
 using Net6WebApiTemplate.Api.Routes.Version1;
-using Net6WebApiTemplate.Application.products.Commands.Createproduct;
-using Net6WebApiTemplate.Application.products.Commands.Deleteproduct;
-using Net6WebApiTemplate.Application.products.Commands.Queries.GetproductByIdQuery;
-using Net6WebApiTemplate.Application.products.Commands.Queries.GetproductsQuery;
-using Net6WebApiTemplate.Application.products.Commands.Updateproduct;
+using Net6WebApiTemplate.Application.Products.Commands.CreateProduct;
+using Net6WebApiTemplate.Application.Products.Commands.DeleteProduct;
+using Net6WebApiTemplate.Application.Products.Commands.PatchProduct;
+using Net6WebApiTemplate.Application.Products.NQueries.GetProductById;
+using Net6WebApiTemplate.Application.Products.NQueries.GetProducts;
 
 namespace Net6WebApiTemplate.Api.Controllers.Version1
 {
@@ -40,8 +40,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
             {
                 ProductName = request.ProductName,
                 UnitPrice = request.UnitPrice,
-                CategoryId = request.CategoryId,
-                Category = request.Category,
+                CategoryId = request.CategoryId         
             };
 
             await _mediator.Send(command);
@@ -58,12 +57,12 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         /// <response code="400">Bad request</response>
         /// <response code ="429">Too Many Requests</response>
         [HttpGet]
-        [Route(ApiRoutes.product.Get)]
+        [Route(ApiRoutes.Product.Get)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get([FromQuery] int id)
         {
-            var query = new GetproductByIdQuery()
+            var query = new GetProductByIdQuery()
             {
                 Id = id
             };
@@ -73,19 +72,19 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         }
 
         /// <summary>
-        ///  Get list of products
+        ///  Get list of Products
         /// </summary>
         /// <returns></returns>
         /// <response code="200">Success retrieving product list</response>
         /// <response code="400">Bad request</response>
         /// <response code ="429">Too Many Requests</response>
         [HttpGet]
-        [Route(ApiRoutes.product.GetAll)]
+        [Route(ApiRoutes.Product.GetAll)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll()
         {
-            var query = new GetproductsQuery();
+            var query = new GetProductsQuery();
             var results = await _mediator.Send(query);
 
             return Ok(results);
@@ -100,20 +99,21 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         /// <response code="400">Bad request</response>
         /// <response code ="429">Too Many Requests</response>
         [HttpPatch]
-        [Route(ApiRoutes.product.Update)]
+        [Route(ApiRoutes.Product.Patch)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Update([FromBody] productRequest request)
+        public async Task<IActionResult> Update([FromBody] ProductRequest request)
         {
-            var command = new UpdateproductCommand()
+            var command = new PatchProductCommand()
             {
                 Id = request.Id,
-                FirstName = request.FirstName,
-                LastName = request.LastName
+                ProductName = request.ProductName,
+                UnitPrice = request.UnitPrice,
+                CategoryId = request.CategoryId,
             };
-            await _mediator.Send(command);
+            var results = await _mediator.Send(command);
 
-            return NoContent();
+            return Ok(results);
         }
 
         /// <summary>
@@ -125,15 +125,15 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         /// <response code="400">Bad request</response>
         /// <response code ="429">Too Many Requests</response>
         [HttpDelete]
-        [Route(ApiRoutes.product.Delete)]
+        [Route(ApiRoutes.Product.Delete)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete([FromQuery] int id)
         {
-            var command = new DeleteproductCommand { Id = id };
-            await _mediator.Send(command);
+            var command = new DeleteProductCommand { Id = id };
+            var results = await _mediator.Send(command);
 
-            return NoContent();
+            return Ok(results);
         }
     }
 }
