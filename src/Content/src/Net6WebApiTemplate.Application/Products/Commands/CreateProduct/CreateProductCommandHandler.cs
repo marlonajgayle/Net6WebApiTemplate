@@ -1,10 +1,11 @@
 ﻿using MediatR;
 using Net6WebApiTemplate.Application.Common.Interfaces;
+using Net6WebApiTemplate.Application.Products.Dto;
 using Net6WebApiTemplate.Domain.Entities;
 using System;
 namespace Net6WebApiTemplate.Application.Products.Commands.CreateProduct;
 
-    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,Product>
+    public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, ProductDto>
     {
     private readonly IMediator _mediator;
     private readonly INet6WebApiTemplateDbContext _dbContext;
@@ -15,7 +16,7 @@ namespace Net6WebApiTemplate.Application.Products.Commands.CreateProduct;
         _dbContext = dbContext;
     }
 
-    public async Task<Product> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<ProductDto> Handle(CreateProductCommand request, CancellationToken cancellationToken)
     {
         Product product = new()
         {          
@@ -27,6 +28,12 @@ namespace Net6WebApiTemplate.Application.Products.Commands.CreateProduct;
          _dbContext.Products.Add(product);
          await _dbContext.SaveChangesAsync(cancellationToken);
 
-        return product;
+        ProductDto productDto = new()
+        {
+            CategoryId = request.CategoryId,
+            ProductName = request.ProductName,
+            UnitPrice = request.UnitPrice
+        };
+        return productDto;
     }
 }

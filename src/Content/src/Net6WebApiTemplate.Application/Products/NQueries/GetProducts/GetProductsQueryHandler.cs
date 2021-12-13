@@ -16,12 +16,14 @@ namespace Net6WebApiTemplate.Application.Products.NQueries.GetProducts
         public async Task<IList<ProductDto>> Handle(GetProductsQuery request, CancellationToken cancellationToken)
         {
             var products = await _dbContext.Products
+               .Include(s => s.Category)
                .Select(product => new ProductDto
                {
                    Id = product.Id,
                    ProductName = product.ProductName,
                    UnitPrice = product.UnitPrice,
-                   CategoryId = product.CategoryId
+                   CategoryId = product.CategoryId,
+                   Category = product.Category
                })
                .ToListAsync(cancellationToken);
 

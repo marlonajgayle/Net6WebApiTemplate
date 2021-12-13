@@ -18,7 +18,8 @@ namespace Net6WebApiTemplate.Persistence.Configurations
                 .IsUnicode(false);
 
             builder.Property(e => e.UnitPrice)
-                .HasMaxLength(50)
+                .HasColumnType("decimal")
+                .HasPrecision(19, 2)
                 .IsUnicode(false);
 
             builder.Property(e => e.CategoryId)
@@ -26,8 +27,12 @@ namespace Net6WebApiTemplate.Persistence.Configurations
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            builder.HasOne<Category>().WithOne();
+            builder
+            .HasOne<Category>(category => category.Category)
+            .WithMany(products => products.Products)
+            .HasForeignKey(category => category.CategoryId);
 
+            
         }
     }
 }
