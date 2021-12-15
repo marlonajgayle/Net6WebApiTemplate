@@ -19,5 +19,23 @@
             public const string Update = Base + "/clients/{id}";
             public const string Delete = Base + "/clients/{id}";
         }
+
+        public static class Product
+        {
+            public const string Create = Base + "/products";
+            public const string Get = Base + "/products/{id}";
+            public const string GetAll = Base + "/products";
+            public const string Patch = Base + "/products/{id}";
+            public const string Delete = Base + "/products/{id}";
+        }
+
+        public static class Category
+        {
+            public const string Create = Base + "/categories";
+            public const string Get = Base + "/categories/{id}";
+            public const string GetAll = Base + "/categories";
+            public const string Patch = Base + "/categories/{id}";
+            public const string Delete = Base + "/categories/{id}";
+        }
     }
 }

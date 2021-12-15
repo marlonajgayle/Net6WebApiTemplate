@@ -13,7 +13,8 @@ namespace Net6WebApiTemplate.Persistence
         private readonly ICurrentUserService _currentUserService;
 
         public DbSet<Client> Clients { get; set; }
-
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public Net6WebApiTemplateDbContext(DbContextOptions<Net6WebApiTemplateDbContext> options)
