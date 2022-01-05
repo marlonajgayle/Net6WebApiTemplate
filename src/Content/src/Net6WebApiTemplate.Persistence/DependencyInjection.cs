@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Net6WebApiTemplate.Application.Common.Interfaces;
+using Net6WebApiTemplate.Application.Common.Interfaces; 
+using System;
 
 namespace Net6WebApiTemplate.Persistence
 {
@@ -11,7 +12,7 @@ namespace Net6WebApiTemplate.Persistence
         public static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddHealthChecks()
-                .AddDbContextCheck<Net6WebApiTemplateDbContext>();
+                .AddDbContextCheck<Net6WebApiTemplateDbContext>(name: "Application Database");
 
             services.AddDbContext<Net6WebApiTemplateDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("Net6WebApiConnection"),
