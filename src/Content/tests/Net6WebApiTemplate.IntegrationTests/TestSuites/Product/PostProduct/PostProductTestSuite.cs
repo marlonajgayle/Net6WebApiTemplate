@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
+using Net6WebApiTemplate.IntegrationTests.Factory;
+using Xunit;
 
-namespace Net6WebApiTemplate.IntegrationTests.TestSuites.Product.PostProduct
+namespace Net6WebApiTemplate.IntegrationTests.TestSuites.Product
 {
-    internal class PostProductTestSuite
+    public partial class PostProductTestSuite : IClassFixture<CustomWebApplicationFactory<Program>>
     {
     }
 }
