@@ -8,7 +8,9 @@ using System.IO;
 namespace Net6WebApiTemplate.IntegrationTests.Fixtures
 {
     public partial class IntegrationTestSuiteFixture : IDisposable
-    {      
+    {
+        public ServiceProvider ServiceProvider { get; private set; }
+
         public IntegrationTestSuiteFixture()
         {
             var appSettings = new ConfigurationBuilder()
@@ -23,8 +25,10 @@ namespace Net6WebApiTemplate.IntegrationTests.Fixtures
 
             var serviceCollection = new ServiceCollection();
             serviceCollection
-                .AddDbContext<Net6WebApiTemplateDbContext>(options => options.UseSqlServer(appSettings["ConnectionStrings:CBDCDbConnection"]),
-                    ServiceLifetime.Transient);          
+                .AddDbContext<Net6WebApiTemplateDbContext>(options => options.UseSqlServer(appSettings["ConnectionStrings:Net6WebApiConnection"]),
+                    ServiceLifetime.Transient);
+
+            ServiceProvider = serviceCollection.BuildServiceProvider();
         }
       
 

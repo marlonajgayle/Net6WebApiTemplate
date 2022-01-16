@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using Net6WebApiTemplate.IntegrationTests.Fixtures;
+using Xunit;
 
 namespace Net6WebApiTemplate.IntegrationTests.Collections
 {

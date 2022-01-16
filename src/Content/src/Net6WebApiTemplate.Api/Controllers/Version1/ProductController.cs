@@ -5,6 +5,7 @@ using Net6WebApiTemplate.Api.Routes.Version1;
 using Net6WebApiTemplate.Application.Products.Commands.CreateProduct;
 using Net6WebApiTemplate.Application.Products.Commands.DeleteProduct;
 using Net6WebApiTemplate.Application.Products.Commands.PatchProduct;
+using Net6WebApiTemplate.Application.Products.Dto;
 using Net6WebApiTemplate.Application.Products.NQueries.GetProductById;
 using Net6WebApiTemplate.Application.Products.NQueries.GetProducts;
 
@@ -60,15 +61,15 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         [Route(ApiRoutes.Product.Get)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Get([FromQuery] int id)
+        public async Task<IActionResult> Get([FromRoute] int id)
         {
             var query = new GetProductByIdQuery()
             {
                 Id = id
             };
-            await _mediator.Send(query);
+            var result = await _mediator.Send(query);
 
-            return Ok(query);
+            return Ok(result);
         }
 
         /// <summary>
@@ -102,11 +103,11 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         [Route(ApiRoutes.Product.Patch)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Update([FromBody] ProductRequest request)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ProductRequest request)
         {
             var command = new PatchProductCommand()
             {
-                Id = request.Id,
+                Id = id,
                 ProductName = request.ProductName,
                 UnitPrice = request.UnitPrice,
                 CategoryId = request.CategoryId,
@@ -128,7 +129,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         [Route(ApiRoutes.Product.Delete)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Delete([FromQuery] int id)
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var command = new DeleteProductCommand { Id = id };
             var results = await _mediator.Send(command);

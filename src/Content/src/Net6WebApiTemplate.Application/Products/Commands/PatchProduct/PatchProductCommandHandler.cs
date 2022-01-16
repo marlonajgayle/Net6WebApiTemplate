@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Net6WebApiTemplate.Application.Common.Exceptions;
 using Net6WebApiTemplate.Application.Common.Interfaces;
 using Net6WebApiTemplate.Application.Products.Dto;
@@ -15,7 +16,11 @@ public class PatchProductCommandHandler : IRequestHandler<PatchProductCommand, P
     }
     public async Task<ProductDto> Handle(PatchProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _dbContext.Products.FindAsync(request.Id, cancellationToken);
+        Product product = await Task.Run(() => _dbContext
+              .Products
+              .Include(s => s.Category)
+              .Where(s => s.Id.Equals(request.Id))
+              .FirstOrDefault(), cancellationToken);
 
         if (product == null)
         {

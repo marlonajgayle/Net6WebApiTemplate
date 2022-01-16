@@ -1,11 +1,12 @@
-﻿using Microsoft.VisualStudio.TestPlatform.TestHost;
+﻿using Net6WebApiTemplate.IntegrationTests.Collections;
 using Net6WebApiTemplate.IntegrationTests.Factory;
 using Net6WebApiTemplate.IntegrationTests.Fixtures;
 using System.Net.Http;
 using Xunit;
 
 namespace Net6WebApiTemplate.IntegrationTests.TestSuites.Product
-{    
+{
+    [Collection(nameof(IntegrationTestSuiteCollection))]
     public partial class ProductTestSuite : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly HttpClient _client;

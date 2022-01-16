@@ -14,18 +14,14 @@ namespace Net6WebApiTemplate.IntegrationTests.TestSuites.Product
     public partial class ProductTestSuite : IClassFixture<CustomWebApplicationFactory<Program>>
     {   
         [Fact]
-        public async Task When_PostProduct_With_ValidClient_And_ValidRequestBody_Then_Success()
-        {
-            //await _fixture.TestForAccessToken(_client);
-            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _fixture.TestClientAccessToken);
-
-
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Post, "api/v1/products");
+        public async Task When_PatchProduct_With_ValidClient_And_ValidRequestBody_Then_Success()
+        {         
+            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Patch, "api/v1/products/6");
             var pocoObject = new ProductRequest()
             {
                 CategoryId = 1,
-                ProductName = "Test Product",
-                UnitPrice = 10                
+                ProductName = "Updated Test Product",
+                UnitPrice = 11
             };
 
             //Converting the object to a json string. NOTE: Make sure the object doesn't contain circular references.
@@ -41,7 +37,7 @@ namespace Net6WebApiTemplate.IntegrationTests.TestSuites.Product
             Assert.Equal(pocoObject.ProductName, result?.ProductName);
             Assert.Equal(pocoObject.CategoryId, result?.CategoryId);
             Assert.Equal(pocoObject.UnitPrice, result?.UnitPrice);
-            Assert.Equal(HttpStatusCode.Created, response.StatusCode);
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal("application/json; charset=utf-8", response.Content.Headers.ContentType?.ToString());
         }
     }

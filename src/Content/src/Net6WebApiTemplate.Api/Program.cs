@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Net6WebApiTemplate.Api.Filters;
 using Net6WebApiTemplate.Api.Options;
@@ -18,6 +20,7 @@ using NLog.Web;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Globalization;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -87,7 +90,8 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastrucutre(builder.Configuration, builder.Environment);
 builder.Services.AddPersistence(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options=>
+options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 // Swagger OpenAPI Configuration
 var swaggerDocOptions = new SwaggerDocOptions();
@@ -252,3 +256,5 @@ app.UseEndpoints(endpoints =>
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }
