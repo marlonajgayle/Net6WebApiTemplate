@@ -9,6 +9,12 @@ namespace Net6WebApiTemplate.IntegrationTests.Fixtures
 {
     public partial class IntegrationTestSuiteFixture : IDisposable
     {
+
+        public const string TestProductName = "TestProduct1";
+        public const string TestCategoryName = "TestCategory1";
+        public static int TestProductId = 0;
+        public static int TestCategoryId = 0;
+
         public ServiceProvider ServiceProvider { get; private set; }
 
         public IntegrationTestSuiteFixture()

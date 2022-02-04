@@ -24,13 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="TestSuites\Product\GetProductById\" />
-    <Folder Include="TestSuites\Product\GetProducts\" />
-    <Folder Include="TestSuites\Product\DeleteProduct\" />
-    <Folder Include="TestSuites\Product\PatchProduct\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\Net6WebApiTemplate.Persistence\Net6WebApiTemplate.Persistence.csproj" />
 	<ProjectReference Include="..\..\src\Net6WebApiTemplate.Api\Net6WebApiTemplate.Api.csproj" />
   </ItemGroup>

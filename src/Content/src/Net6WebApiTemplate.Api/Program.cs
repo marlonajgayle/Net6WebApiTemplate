@@ -4,18 +4,15 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Net6WebApiTemplate.Api.Filters;
 using Net6WebApiTemplate.Api.Options;
 using Net6WebApiTemplate.Api.Services;
 using Net6WebApiTemplate.Application;
 using Net6WebApiTemplate.Application.Common.Interfaces;
-using Net6WebApiTemplate.Application.HealthChecks;
 using Net6WebApiTemplate.Infrastructure;
 using Net6WebApiTemplate.Persistence;
-using Newtonsoft.Json;
+using Net6WebApiTemplate.Persistence.Seeders;
 using NLog.Web;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Globalization;
@@ -190,6 +187,11 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local") ||
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Seed test data
+    var context = app.Services.GetService<INet6WebApiTemplateDbContext>();
+    ProductSeeder.Initialize(context).Wait();
+    CategorySeeder.Initialize(context).Wait();    
 }
 else
 {

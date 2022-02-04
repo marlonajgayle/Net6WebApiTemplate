@@ -2,6 +2,7 @@
 using Net6WebApiTemplate.Api.Contracts.Version1.Requests;
 using Net6WebApiTemplate.Application.Products.Dto;
 using Net6WebApiTemplate.IntegrationTests.Factory;
+using Net6WebApiTemplate.IntegrationTests.Fixtures;
 using Newtonsoft.Json;
 using System.Net;
 using System.Net.Http;
@@ -15,8 +16,10 @@ namespace Net6WebApiTemplate.IntegrationTests.TestSuites.Product
     {   
         [Fact]
         public async Task When_PatchProduct_With_ValidClient_And_ValidRequestBody_Then_Success()
-        {         
-            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Patch, "api/v1/products/6");
+        {
+            _fixture.ensureProduct();
+
+            HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Patch, $"api/v1/products/{IntegrationTestSuiteFixture.TestProductId}");
             var pocoObject = new ProductRequest()
             {
                 CategoryId = 1,
