@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Net6WebApiTemplate.Application.Common.Interfaces;
 using Net6WebApiTemplate.Persistence;
@@ -13,7 +14,10 @@ namespace Net6WebApiTemplate.IntegrationTests.Factory
             builder.UseEnvironment("Test")
                     .ConfigureServices(services =>
                     {                      
-                        services.AddScoped<INet6WebApiTemplateDbContext>(provider => provider.GetService<Net6WebApiTemplateDbContext>());
+                        services.AddDbContext<Net6WebApiTemplateDbContext>(options =>
+                        {
+                            options.UseInMemoryDatabase("InMemoryDbForTesting");
+                        });
                     });
         }
     }
