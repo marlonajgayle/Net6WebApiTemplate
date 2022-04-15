@@ -40,11 +40,21 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6WebApiTemplate.Integrat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6WebApiTemplate.UnitTests", "src\Content\tests\Net6WebApiTemplate.UnitTests\Net6WebApiTemplate.UnitTests.csproj", "{E7632C6A-E1F6-4DAF-84C8-5A914ED8A83E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".template.config", ".template.config", "{835E168C-0FCD-4F53-82FE-223CF72409D4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{6B60B5D7-75E5-4D2B-9FDE-F31139366DF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{903A6181-F41A-49B6-B1C3-1A40F00DE36D}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\Downloads\icon.png = ..\..\..\Downloads\icon.png
-		ide.host.json = ide.host.json
-		template.json = template.json
+		codeql-analysis.yml = codeql-analysis.yml
+		dotnet.yml = dotnet.yml
+		publish-nuget.yml = publish-nuget.yml
+		release.yml = release.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".template.config", ".template.config", "{4C04C018-C815-47CE-9285-A4425EA426AF}"
+	ProjectSection(SolutionItems) = preProject
+		src\Content\.template.config\icon.png = src\Content\.template.config\icon.png
+		src\Content\.template.config\ide.host.json = src\Content\.template.config\ide.host.json
+		src\Content\.template.config\template.json = src\Content\.template.config\template.json
 	EndProjectSection
 EndProject
 Global
@@ -96,7 +106,9 @@ Global
 		{2F35673F-94C6-4ECD-85E9-272364577B14} = {B733ACF3-AB4B-4395-AFB0-7D834B105896}
 		{2D0AFD74-57D2-48EE-8C06-4126BC5ED0BE} = {54C7871C-54BB-4282-BEB8-22EC260EF7D8}
 		{E7632C6A-E1F6-4DAF-84C8-5A914ED8A83E} = {54C7871C-54BB-4282-BEB8-22EC260EF7D8}
-		{835E168C-0FCD-4F53-82FE-223CF72409D4} = {BAE08B69-8F34-4542-B828-295A44EEBDE2}
+		{6B60B5D7-75E5-4D2B-9FDE-F31139366DF2} = {1C9D1A31-2BA8-4A7A-ABB5-5DD5F2F62BE5}
+		{903A6181-F41A-49B6-B1C3-1A40F00DE36D} = {6B60B5D7-75E5-4D2B-9FDE-F31139366DF2}
+		{4C04C018-C815-47CE-9285-A4425EA426AF} = {BAE08B69-8F34-4542-B828-295A44EEBDE2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {242DA3EE-7BFC-46D7-82F8-BD7563E30A55}

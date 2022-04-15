@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Models\" />
     <Folder Include="Common\Mappings\" />
   </ItemGroup>
 
