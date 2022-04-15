@@ -35,7 +35,7 @@ jobs:
       uses: battila7/get-version-action@v2
       
     - name: 'Pack Nuget Package'
-      run: dotnet pack --no-restore --no-build --cofiguration Release  --output ${{ PACKAGE_OUTPUT_DIRECTORY }}
+      run: dotnet pack --no-restore --no-build --cofiguration Release  --output ${{ env.PACKAGE_OUTPUT_DIRECTORY }}
 
     - name: 'Publish Nuget Package'
-      run: dotnet nuget push ${{ PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -s ${{ NUGET_SOURCE_URL }} --skip-duplicate -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --api-key ${{ secrets.NUGET_AUTH_TOKEN }}
+      run: dotnet nuget push ${{ env.PACKAGE_OUTPUT_DIRECTORY }}\*.nupkg -s ${{ env.NUGET_SOURCE_URL }} --skip-duplicate -p:PackageVersion=${{ steps.version.outputs.version-without-v }} --api-key ${{ secrets.NUGET_AUTH_TOKEN }}
