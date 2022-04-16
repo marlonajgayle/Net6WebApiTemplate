@@ -11,7 +11,7 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   # Build Variables
   ARTIFACTS_DIRECTORY: ${{ github.workspace }}\artifacts
-  PROJECT_PATH: ${{ github.workspace }}\src\Content\src\Net6ApiWebTemplate.Api\Net6ApiWebTemplate.Api.csproj
+  PROJECT_PATH: ${{ github.workspace }}\src\Content\src\Net6WebApiTemplate.Api\Net6WebApiTemplate.Api.csproj
 
 jobs:
   build:
@@ -36,7 +36,7 @@ jobs:
        run: dotnet test --no-build --configuration Release --verbosity normal
 
      - name: 'Pack Project'
-       run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release -p:NuspecFile=${{ github.workspace }}\src\Net6ApiWebTemplate.nuspec -p:NuspecBasePath=${{ github.workspace }}\src -p:NuspecProperties="version=${{ github.event.release.tag_name }}" -p:PackageVersion=${{ github.event.release.tag_name }} -p:PackageReleaseNotes="See https://github.com/marlonajgayle/Net6ApiWebTemplate/releases/tag/${{ github.event.release.tag_name }}" --output ${{ env.ARTIFACTS_DIRECTORY }}
+       run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release -p:NuspecFile=${{ github.workspace }}\src\Net6WebApiTemplate.nuspec -p:NuspecBasePath=${{ github.workspace }}\src -p:NuspecProperties="version=${{ github.event.release.tag_name }}" -p:PackageVersion=${{ github.event.release.tag_name }} -p:PackageReleaseNotes="See https://github.com/marlonajgayle/Net6WebApiTemplate/releases/tag/${{ github.event.release.tag_name }}" --output ${{ env.ARTIFACTS_DIRECTORY }}
 
      - name: 'Archive Nuget Artifact'
        uses: actions/upload-artifact@v2.2.4
@@ -50,7 +50,7 @@ jobs:
     if: github.event_name == 'release'
     environment:
       name: 'GitHub Packages'
-      url: https://github.com/marlonajgayle/Net6ApiWebTemplate
+      url: https://github.com/marlonajgayle/Net6WebApiTemplate
     permissions:
       packages: write
     runs-on: windows-latest
@@ -72,7 +72,7 @@ jobs:
     if: github.event_name == 'release'
     environment:
       name: 'Nuget Packages'
-      url: https://www.nuget.org/packages/Net6ApiWebTemplate/
+      url: https://www.nuget.org/packages/Net6WebApiTemplate/
     runs-on: windows-latest
     steps:
     - name: 'Download Artifact'
