@@ -6,10 +6,22 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 	
-	<PropertyGroup>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<NoWarn>$(NoWarn);1591</NoWarn>
-	</PropertyGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <Authors>Marlon A. J. Gayle</Authors>
+    <PackageProjectUrl>https://github.com/marlonajgayle/Net6WebApiTemplate</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/marlonajgayle/Net6WebApiTemplate</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageTags>ASP.NET Core dotnet template net6webapitemplate</PackageTags>
+    <Description>A multi-project solution .NET template for creating an enterprise-level application that includes the use of .NET Identity, Swagger, API Versioning, CORS, Localization, NLog, Fluent Validation, Fluent Email, IP Rate Limiting using the .NET 6 Framework and are guided by the Clean Architecture principles enabling rapid application development.</Description>
+    <Copyright>Copyright © Marlon A. J. Gayle. All rights Reserved</Copyright>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IsPackable>true</IsPackable>
+    <PackageReleaseNotes>https://github.com/marlonajgayle/Net6WebApiTemplate/releases</PackageReleaseNotes>
+    <NuspecFile>..\..\Net6WebApiTemplate.nuspec</NuspecFile>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AspNetCoreRateLimit" Version="4.0.1" />
