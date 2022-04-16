@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <IsPackable>true</IsPackable>
     <PackageReleaseNotes>https://github.com/marlonajgayle/Net6WebApiTemplate/releases</PackageReleaseNotes>
-    <NuspecFile>..\..\Net6WebApiTemplate.nuspec</NuspecFile>
+    <NuspecFile>..\..\..\Net6WebApiTemplate.nuspec</NuspecFile>
   </PropertyGroup>
 
   <ItemGroup>
