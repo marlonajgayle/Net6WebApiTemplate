@@ -36,7 +36,7 @@ jobs:
        run: dotnet test --no-build --configuration Release --verbosity normal
 
      - name: 'Pack Project'
-       run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release -p:NuspecFile=${{ github.workspace }}\src\Net6WebApiTemplate.nuspec -p:NuspecBasePath=${{ github.workspace }}\src -p:NuspecProperties="version=${{ github.event.release.tag_name }}" -p:PackageVersion=${{ github.event.release.tag_name }} -p:PackageReleaseNotes="See https://github.com/marlonajgayle/Net6WebApiTemplate/releases/tag/${{ github.event.release.tag_name }}" --output ${{ env.ARTIFACTS_DIRECTORY }}
+       run: dotnet pack ${{ env.PROJECT_PATH }} --no-build --no-restore --configuration Release -p:NuspecFile=${{ github.workspace }}\Net6WebApiTemplate.nuspec -p:NuspecBasePath=${{ github.workspace }} -p:NuspecProperties="version=${{ github.event.release.tag_name }}" -p:PackageVersion=${{ github.event.release.tag_name }} -p:PackageReleaseNotes="See https://github.com/marlonajgayle/Net6WebApiTemplate/releases/tag/${{ github.event.release.tag_name }}" --output ${{ env.ARTIFACTS_DIRECTORY }}
 
      - name: 'Archive Nuget Artifact'
        uses: actions/upload-artifact@v2.2.4
