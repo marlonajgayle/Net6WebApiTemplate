@@ -1,21 +1,22 @@
 <img align="left" width="116" height="116" src="https://raw.githubusercontent.com/marlonajgayle/Net6WebApiTemplate/develop/src/Content/.template.config/icon.png" />
 
-# .NET 6 Web Api Template
+# .NET 6 Web Template
 [![Build](https://github.com/marlonajgayle/Net6WebApiTemplate/actions/workflows/dotnet.yml/badge.svg?branch=develop)](https://github.com/marlonajgayle/Net6WebApiTemplate/actions/workflows/dotnet.yml)
 [![CodeQL](https://github.com/marlonajgayle/Net6WebApiTemplate/actions/workflows/codeql-analysis.yml/badge.svg?branch=develop)](https://github.com/marlonajgayle/Net6WebApiTemplate/actions/workflows/codeql-analysis.yml)
+[![Boilerplate.Templates NuGet Package](https://img.shields.io/nuget/v/Net6WebTemplate.svg)](https://www.nuget.org/packages/Net6WebTemplate)
+[![Boilerplate.Templates NuGet Package Downloads](https://img.shields.io/nuget/dt/Net6WebTemplate)](https://www.nuget.org/packages/Net6WebTemplate)
 
-This is a multi-project solution dotnet template for creating an enterprise-level Web API using .NET 6 ASP.NET Core using the
-Clean Architecture principles and API best practicies.
+This is a multi-project solution dotnet template for developing an enterprise-level Web API with.NET 6 ASP.NET Core, following Clean Architecture principles and API best practices.
+The .NET 6 Web Api Template consist of scafolding for API versioning, CQRS, email, localization, logging, IP rate limiting, JWT, Open API, validation, unit and integration testing.
 
-## Purpose
-This template was designed to create a standard to create .NET 6 Web APIs with enterprise-level considerations.
+## Table of Contents
+* [Prerequisites](#Prerequisites)
+* [Usage](#Usage)
+* [Contributions](#Contributions)
+* [Credits](#Credits)
 
-The solution template consist of scafolding for API versioning, CQRS, email, localization, logging, IP rate limiting, JWT, Open API, validation, unit and integration testing.
 
-## Getting Started
-Use the instructions provided below to get the solution up and running.
-
-### Prerequisites
+## Prerequisites
 You will need the following tools:
 * [Visual Studio Code or Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (version 17.0.0 Preview 7.0 or later)
 * [.NET Core SDK 6.0](https://dotnet.microsoft.com/download/dotnet/6.0)
