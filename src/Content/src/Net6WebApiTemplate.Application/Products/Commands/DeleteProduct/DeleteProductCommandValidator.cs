@@ -8,7 +8,7 @@ namespace Net6WebApiTemplate.Application.Products.Commands.DeleteProduct
         {
             RuleFor(v => v.Id)
                 .NotNull().WithMessage("id field is required")
-                .LessThan(1).WithMessage("Invalid id.");
+                .GreaterThan(0).WithMessage("Invalid id.");
         }
     }
 }

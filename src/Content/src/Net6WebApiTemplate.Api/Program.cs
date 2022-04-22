@@ -10,14 +10,14 @@ using Net6WebApiTemplate.Api.Options;
 using Net6WebApiTemplate.Api.Services;
 using Net6WebApiTemplate.Application;
 using Net6WebApiTemplate.Application.Common.Interfaces;
-using Net6WebApiTemplate.Application.HealthChecks;
 using Net6WebApiTemplate.Infrastructure;
 using Net6WebApiTemplate.Persistence;
-using Newtonsoft.Json;
+using Net6WebApiTemplate.Persistence.Seeders;
 using NLog.Web;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Globalization;
 using System.Reflection;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -87,7 +87,8 @@ builder.Services.AddApplication();
 builder.Services.AddInfrastrucutre(builder.Configuration, builder.Environment);
 builder.Services.AddPersistence(builder.Configuration);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options=>
+options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 // Swagger OpenAPI Configuration
 var swaggerDocOptions = new SwaggerDocOptions();
@@ -186,6 +187,11 @@ if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Local") ||
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Seed test data
+    var context = app.Services.GetService<INet6WebApiTemplateDbContext>();
+    ProductSeeder.Initialize(context).Wait();
+    CategorySeeder.Initialize(context).Wait();    
 }
 else
 {
@@ -252,3 +258,5 @@ app.UseEndpoints(endpoints =>
 app.MapControllers();
 
 app.Run();
+
+public partial class Program { }

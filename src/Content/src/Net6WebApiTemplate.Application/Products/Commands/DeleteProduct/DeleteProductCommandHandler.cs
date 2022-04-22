@@ -1,6 +1,9 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Net6WebApiTemplate.Application.Common.Exceptions;
 using Net6WebApiTemplate.Application.Common.Interfaces;
+using Net6WebApiTemplate.Domain.Entities;
+
 namespace Net6WebApiTemplate.Application.Products.Commands.DeleteProduct;
 public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, bool>
 {
@@ -14,7 +17,10 @@ public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,
     }
     public async Task<bool> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
-        var product = await _dbContext.Products.FindAsync(request.Id, cancellationToken);
+        Product product = await Task.Run(() => _dbContext
+              .Products
+              .Where(s => s.Id.Equals(request.Id))
+              .FirstOrDefault(), cancellationToken);
 
         if (product == null)
         {

@@ -12,7 +12,7 @@ namespace Net6WebApiTemplate.Api.Services
 
         public CurrentUserService(IHttpContextAccessor httpContextAccessor)
         {
-            IpAddress = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress.ToString();
+            IpAddress = httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.ToString();            
             UserName = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Name);
             UserId = httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
             IsAuthenticated = UserId != null;
