@@ -19,6 +19,6 @@ namespace Net6WebApiTemplate.Application.Common.Exceptions
                 .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
                 .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray());
         }
-        
+
     }
 }

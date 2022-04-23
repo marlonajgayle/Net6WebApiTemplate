@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Net6WebApiTemplate.Domain.Exceptions
+﻿namespace Net6WebApiTemplate.Domain.Exceptions
 {
     public class TrnInvalidException : Exception
     {

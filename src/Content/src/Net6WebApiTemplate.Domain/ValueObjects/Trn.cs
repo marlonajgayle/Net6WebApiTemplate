@@ -9,13 +9,13 @@ namespace Net6WebApiTemplate.Domain.ValueObjects
 
         protected override void Validate()
         {
-           if (Value.Length != RequiredLength)
-           {
+            if (Value.Length != RequiredLength)
+            {
                 throw new TrnInvalidException(Value);
-           }
+            }
 
-           if (!int.TryParse(Value, out _))
-           {
+            if (!int.TryParse(Value, out _))
+            {
                 throw new TrnInvalidException(Value);
             }
         }

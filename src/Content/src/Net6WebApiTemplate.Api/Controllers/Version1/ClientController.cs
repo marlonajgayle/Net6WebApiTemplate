@@ -39,14 +39,14 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         public async Task<IActionResult> Create([FromBody] ClientRequest request)
         {
             var command = new CreateClientCommand()
-            { 
+            {
                 FirstName = request.FirstName,
                 MiddleName = request.MiddleName,
                 LastName = request.LastName,
                 Trn = request.Trn,
                 AddressLine1 = request.AddressLine1,
                 AddressLine2 = request.AddressLine2,
-                Parish = request.Parish                
+                Parish = request.Parish
             };
 
             await _mediator.Send(command);
@@ -69,7 +69,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         public async Task<IActionResult> Get([FromQuery] int id)
         {
             var query = new GetClientByIdQuery()
-            { 
+            {
                 Id = id
             };
             await _mediator.Send(query);
@@ -134,10 +134,10 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
         public async Task<IActionResult> Update([FromBody] ClientRequest request)
         {
             var command = new UpdateClientCommand()
-            { 
-               Id = request.Id,
-               FirstName = request.FirstName,
-               LastName = request.LastName
+            {
+                Id = request.Id,
+                FirstName = request.FirstName,
+                LastName = request.LastName
             };
             await _mediator.Send(command);
 

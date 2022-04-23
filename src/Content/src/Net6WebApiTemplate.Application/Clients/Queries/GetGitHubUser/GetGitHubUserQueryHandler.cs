@@ -5,7 +5,7 @@ namespace Net6WebApiTemplate.Application.Clients.Queries.GetGitHubUser
 {
     public class GetGitHubUserQueryHandler : IRequestHandler<GetGitHubUserQuery, string>
     {
-        private readonly IGitHubService  _gitHubService;
+        private readonly IGitHubService _gitHubService;
 
         public GetGitHubUserQueryHandler(IGitHubService gitHubService)
         {
