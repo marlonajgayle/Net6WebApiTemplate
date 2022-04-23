@@ -11,7 +11,7 @@ The .NET 6 Web Api Template consist of scafolding for API versioning, CQRS, emai
 
 ## Table of Contents
 * [Prerequisites](#Prerequisites)
-* [Usage](#Usage)
+* [Instructions](#Instructions)
 * [Contributions](#Contributions)
 * [Credits](#Credits)
 
@@ -21,7 +21,7 @@ You will need the following tools:
 * [Visual Studio Code or Visual Studio 2022](https://visualstudio.microsoft.com/vs/) (version 17.0.0 Preview 7.0 or later)
 * [.NET Core SDK 6.0](https://dotnet.microsoft.com/download/dotnet/6.0)
 
-### Instructions
+## Instructions
 1. Install the latest [.NET Core 6 SDK](https://dotnet.microsoft.com/download). 
 2. Run `ddotnet new --install Net6WebTemplate::1.0.0-beta.1` to install the project template
 3. Then navigate to the location you would like to create to project
