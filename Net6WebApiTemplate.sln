@@ -57,6 +57,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".template.config", ".templa
 		src\Content\.template.config\template.json = src\Content\.template.config\template.json
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E737F7E0-BDC1-4B6E-9614-C1CE188A1F35}"
+	ProjectSection(SolutionItems) = preProject
+		Getting-Started.md = Getting-Started.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -109,6 +114,7 @@ Global
 		{6B60B5D7-75E5-4D2B-9FDE-F31139366DF2} = {1C9D1A31-2BA8-4A7A-ABB5-5DD5F2F62BE5}
 		{903A6181-F41A-49B6-B1C3-1A40F00DE36D} = {6B60B5D7-75E5-4D2B-9FDE-F31139366DF2}
 		{4C04C018-C815-47CE-9285-A4425EA426AF} = {BAE08B69-8F34-4542-B828-295A44EEBDE2}
+		{E737F7E0-BDC1-4B6E-9614-C1CE188A1F35} = {1C9D1A31-2BA8-4A7A-ABB5-5DD5F2F62BE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {242DA3EE-7BFC-46D7-82F8-BD7563E30A55}
