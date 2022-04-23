@@ -27,8 +27,4 @@
 	  <ProjectReference Include="..\Net6WebApiTemplate.Application\Net6WebApiTemplate.Application.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="GitHub\" />
-	</ItemGroup>
-
 </Project>

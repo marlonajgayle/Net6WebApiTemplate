@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Net6WebApiTemplate.Application.Common.Interfaces;
+using Net6WebApiTemplate.Infrastructure.ApiClients.GitHub;
 using Net6WebApiTemplate.Infrastructure.Cache.InMemory;
 using Net6WebApiTemplate.Infrastructure.DataProtection;
 using Net6WebApiTemplate.Infrastructure.Identity;
@@ -112,6 +113,9 @@ namespace Net6WebApiTemplate.Infrastructure
                 client.DefaultRequestHeaders.Add(name:"Accept", value:"application/vnd.github.v3+json");
                 client.DefaultRequestHeaders.Add(name: "User-Agent", value: "HttpClientFactoryExample");
             });
+
+            // Register GitHubApiService
+            services.AddScoped<IGitHubService, GitHubApiService>();
 
             return services;
         }
