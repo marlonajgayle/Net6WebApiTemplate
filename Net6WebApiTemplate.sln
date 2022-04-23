@@ -58,6 +58,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".template.config", ".templa
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{E737F7E0-BDC1-4B6E-9614-C1CE188A1F35}"
+	ProjectSection(SolutionItems) = preProject
+		Getting-Started.md = Getting-Started.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
