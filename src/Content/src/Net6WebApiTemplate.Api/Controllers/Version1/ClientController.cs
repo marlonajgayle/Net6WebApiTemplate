@@ -7,6 +7,7 @@ using Net6WebApiTemplate.Application.Clients.Commands.DeleteClient;
 using Net6WebApiTemplate.Application.Clients.Commands.Queries.GetClientByIdQuery;
 using Net6WebApiTemplate.Application.Clients.Commands.Queries.GetClientsQuery;
 using Net6WebApiTemplate.Application.Clients.Commands.UpdateClient;
+using Net6WebApiTemplate.Application.Clients.Queries.GetGitHubUser;
 
 namespace Net6WebApiTemplate.Api.Controllers.Version1
 {
@@ -74,6 +75,29 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
             await _mediator.Send(query);
 
             return Ok(query);
+        }
+
+        /// <summary>
+        /// Retrieve GitHub user by username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns> 
+        /// <response code="200">Success Retrieve GitHuib user info</response>
+        /// <response code="400">Bad request</response>
+        /// <response code ="429">Too Many Requests</response>
+        [HttpGet]
+        [Route(ApiRoutes.Client.GetGitHubUser)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetGitHubUser(string username)
+        {
+            var query = new GetGitHubUserQuery()
+            {
+                Username = username
+            };
+
+            var results = await _mediator.Send(query);
+            return Ok(results);
         }
 
         /// <summary>

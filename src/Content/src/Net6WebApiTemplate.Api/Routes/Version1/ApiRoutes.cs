@@ -15,6 +15,7 @@
         {
             public const string Create = Base + "/clients";
             public const string Get = Base + "/clients/{id}";
+            public const string GetGitHubUser = Base + "/clients/github/{username}";
             public const string GetAll = Base + "/clients";
             public const string Update = Base + "/clients/{id}";
             public const string Delete = Base + "/clients/{id}";
