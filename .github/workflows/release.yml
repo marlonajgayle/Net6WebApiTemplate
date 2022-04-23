@@ -50,7 +50,7 @@ jobs:
     if: github.event_name == 'release'
     environment:
       name: 'GitHub Packages'
-      url: https://github.com/marlonajgayle/Net6WebApiTemplate
+      url: https://github.com/marlonajgayle/Net6WebApiTemplate/packages
     permissions:
       packages: write
     runs-on: windows-latest
@@ -72,7 +72,7 @@ jobs:
     if: github.event_name == 'release'
     environment:
       name: 'Nuget Packages'
-      url: https://www.nuget.org/packages/Net6WebApiTemplate/
+      url: https://www.nuget.org/packages/Net6WebTemplate/
     runs-on: windows-latest
     steps:
     - name: 'Download Artifact'
