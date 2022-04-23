@@ -13,7 +13,7 @@ namespace Net6WebApiTemplate.Application.Common.Behaviours
         public PerformanceBehaviour(ILogger<TRequest> logger)
         {
             _timer = new Stopwatch();
-            _logger = logger;   
+            _logger = logger;
         }
 
         public async Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)

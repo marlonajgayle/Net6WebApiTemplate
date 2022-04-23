@@ -40,7 +40,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
             {
                 ProductName = request.ProductName,
                 UnitPrice = request.UnitPrice,
-                CategoryId = request.CategoryId         
+                CategoryId = request.CategoryId
             };
 
             await _mediator.Send(command);

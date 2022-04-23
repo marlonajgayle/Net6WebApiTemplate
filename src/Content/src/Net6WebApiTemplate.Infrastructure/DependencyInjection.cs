@@ -107,10 +107,10 @@ namespace Net6WebApiTemplate.Infrastructure
             services.AddScoped<IEmailNotification, EmailNotificationService>();
 
             // Register Names HTTP Client
-            services.AddHttpClient(name: "GitHub", client => 
+            services.AddHttpClient(name: "GitHub", client =>
             {
                 client.BaseAddress = new Uri("https://api.github.com/");
-                client.DefaultRequestHeaders.Add(name:"Accept", value:"application/vnd.github.v3+json");
+                client.DefaultRequestHeaders.Add(name: "Accept", value: "application/vnd.github.v3+json");
                 client.DefaultRequestHeaders.Add(name: "User-Agent", value: "HttpClientFactoryExample");
             });
 

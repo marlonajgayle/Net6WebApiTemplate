@@ -1,10 +1,10 @@
-using Net6WebApiTemplate.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Net6WebApiTemplate.Domain.Entities;
 
 namespace Net6WebApiTemplate.Persistence.Configurations
 {
-    public class CategoryConfigurations : IEntityTypeConfiguration<Category> 
+    public class CategoryConfigurations : IEntityTypeConfiguration<Category>
     {
         public void Configure(EntityTypeBuilder<Category> builder)
         {
@@ -24,7 +24,7 @@ namespace Net6WebApiTemplate.Persistence.Configurations
 
             builder
             .HasMany<Product>(product => product.Products)
-            .WithOne(category => category.Category);            
+            .WithOne(category => category.Category);
         }
     }
 }

@@ -5,8 +5,8 @@ using Net6WebApiTemplate.Api.Routes.Version1;
 using Net6WebApiTemplate.Application.Categories.Commands.CreateCategory;
 using Net6WebApiTemplate.Application.Categories.Commands.DeleteCategory;
 using Net6WebApiTemplate.Application.Categories.Commands.PatchCategory;
-using Net6WebApiTemplate.Application.Categories.NQueries.GetCategoryById;
 using Net6WebApiTemplate.Application.Categories.NQueries.GetCategory;
+using Net6WebApiTemplate.Application.Categories.NQueries.GetCategoryById;
 
 namespace Net6WebApiTemplate.Api.Controllers.Version1
 {
@@ -39,7 +39,7 @@ namespace Net6WebApiTemplate.Api.Controllers.Version1
             var command = new CreateCategoryCommand()
             {
                 CategoryName = request.CategoryName,
-                Description = request.Description                
+                Description = request.Description
             };
 
             await _mediator.Send(command);

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Net6WebApiTemplate.Application.Categories.Dto;
 using Net6WebApiTemplate.Application.Common.Exceptions;
 using Net6WebApiTemplate.Application.Common.Interfaces;
@@ -19,7 +18,7 @@ namespace Net6WebApiTemplate.Application.Categories.NQueries.GetCategoryById
         public async Task<CategoryDto> Handle(GetCategoryByIdQuery request, CancellationToken cancellationToken)
         {
             Category result = await Task.Run(() => _dbContext
-           .Categories           
+           .Categories
            .Where(s => s.Id.Equals(request.Id))
            .FirstOrDefault(), cancellationToken);
 

@@ -20,7 +20,7 @@ namespace Net6WebApiTemplate.Persistence
         private static string GetConnectionString()
         {
             var basePath = Directory.GetCurrentDirectory();
-           
+
             var environmentName = Environment.GetEnvironmentVariable(AspNetCoreEnvironment);
             Console.WriteLine(environmentName);
 

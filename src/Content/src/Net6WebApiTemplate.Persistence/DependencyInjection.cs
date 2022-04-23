@@ -2,8 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Net6WebApiTemplate.Application.Common.Interfaces; 
-using System;
+using Net6WebApiTemplate.Application.Common.Interfaces;
 
 namespace Net6WebApiTemplate.Persistence
 {

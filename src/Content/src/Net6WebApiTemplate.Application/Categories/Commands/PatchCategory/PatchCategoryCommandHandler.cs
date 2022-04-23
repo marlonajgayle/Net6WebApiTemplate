@@ -25,7 +25,7 @@ public class PatchCategoryCommandHandler : IRequestHandler<PatchCategoryCommand,
 
         // Patch update
         category.CategoryName = request.CategoryName ?? category.CategoryName;
-        category.Description = request.Description?? category.Description;
+        category.Description = request.Description ?? category.Description;
 
         await _dbContext.SaveChangesAsync(cancellationToken);
 

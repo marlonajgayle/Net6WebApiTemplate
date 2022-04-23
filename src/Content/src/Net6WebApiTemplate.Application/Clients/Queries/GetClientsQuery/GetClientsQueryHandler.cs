@@ -17,7 +17,7 @@ namespace Net6WebApiTemplate.Application.Clients.Commands.Queries.GetClientsQuer
         {
             var clients = await _dbContext.Clients
                 .Select(client => new ClientDto
-                { 
+                {
                     Id = client.Id,
                     FirstName = client.FirstName,
                     LastName = client.LastName

@@ -3,13 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Net6WebApiTemplate.Application.Common.Exceptions;
 using Net6WebApiTemplate.Application.Common.Interfaces;
 using Net6WebApiTemplate.Application.Products.Dto;
-using Net6WebApiTemplate.Application.Products.NQueries.GetProducts;
 using Net6WebApiTemplate.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Net6WebApiTemplate.Application.Products.NQueries.GetProductById
 {

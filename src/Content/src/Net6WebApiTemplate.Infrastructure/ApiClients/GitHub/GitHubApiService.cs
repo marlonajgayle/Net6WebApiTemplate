@@ -8,7 +8,7 @@ namespace Net6WebApiTemplate.Infrastructure.ApiClients.GitHub
 
         public GitHubApiService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClientFactory.CreateClient(name:"GitHub");
+            _httpClient = httpClientFactory.CreateClient(name: "GitHub");
         }
 
         public async Task<string> LoadAccountAsync(string username)
