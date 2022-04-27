@@ -13,6 +13,7 @@ using Net6WebApiTemplate.Infrastructure.DataProtection;
 using Net6WebApiTemplate.Infrastructure.Identity;
 using Net6WebApiTemplate.Infrastructure.Notifications.Email;
 using Net6WebApiTemplate.Infrastructure.Oauth;
+using Polly;
 using System.Text;
 
 namespace Net6WebApiTemplate.Infrastructure
@@ -106,13 +107,15 @@ namespace Net6WebApiTemplate.Infrastructure
             // Register Email Notification Service
             services.AddScoped<IEmailNotification, EmailNotificationService>();
 
+
             // Register Names HTTP Client
             services.AddHttpClient(name: "GitHub", client =>
             {
                 client.BaseAddress = new Uri("https://api.github.com/");
                 client.DefaultRequestHeaders.Add(name: "Accept", value: "application/vnd.github.v3+json");
                 client.DefaultRequestHeaders.Add(name: "User-Agent", value: "HttpClientFactoryExample");
-            });
+            })
+                .AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromMilliseconds(300)));
 
             // Register GitHubApiService
             services.AddScoped<IGitHubService, GitHubApiService>();
