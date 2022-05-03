@@ -23,7 +23,7 @@ You will need the following tools:
 
 ## Instructions
 1. Install the latest [.NET Core 6 SDK](https://dotnet.microsoft.com/download). 
-2. Run `ddotnet new --install Net6WebTemplate::1.0.0-beta.1` to install the project template
+2. Run `ddotnet new --install Net6WebTemplate::1.0.0-beta.2` to install the project template
 3. Then navigate to the location you would like to create to project
 4. Run `dotnet new net6webapitemplate -o "MyProject"` to create a new project
 
